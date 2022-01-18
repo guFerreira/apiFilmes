@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/avaliar")
+@RequestMapping(value = "/avaliacao")
 public class AvaliacaoController {
 
     AvaliacaoService avaliacaoService;
@@ -17,10 +17,10 @@ public class AvaliacaoController {
         this.avaliacaoService = avaliacaoService;
     }
 
-    @PostMapping("/filme/{idFilme}")
-    public ResponseEntity<Avaliacao> avaliarFilme(@PathVariable String idFilme, @RequestBody AvaliacaoDto avaliacaoDto){
+    @PostMapping("/filme")
+    public ResponseEntity<Avaliacao> avaliarFilme(@RequestBody AvaliacaoDto avaliacaoDto){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(avaliacaoService.avaliarFilme(avaliacaoDto, idFilme));
+        return ResponseEntity.status(HttpStatus.CREATED).body(avaliacaoService.avaliarFilme(avaliacaoDto));
     }
 
 }

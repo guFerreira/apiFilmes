@@ -22,10 +22,16 @@ public class FilmeController {
         this.filmeService = filmeService;
     }
 
-    @PostMapping("/criar")
+    @PostMapping
     public ResponseEntity<Filme> criarFilme(@RequestBody FilmeDto filmeDto){
         Filme novoFilme = this.filmeService.criarFilme(filmeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoFilme);
+    }
+
+    @PutMapping("/{idFilme}")
+    public ResponseEntity<Filme> atualizarFilme(@PathVariable Long idFilme, @RequestParam FilmeDto filmeDto){
+        //Filme filmeAtualizado = filmeService.atualizarFilme(Lon)
+        return null;
     }
 
 

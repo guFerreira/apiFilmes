@@ -17,8 +17,8 @@ public class AvaliacaoService {
         this.avaliacaoRepository = avaliacaoRepository;
     }
 
-    public Avaliacao avaliarFilme(AvaliacaoDto avaliacaoDto, String id){
-        Filme filme = filmeRepository.getById(Long.parseLong(id));
+    public Avaliacao avaliarFilme(AvaliacaoDto avaliacaoDto){
+        Filme filme = filmeRepository.getById(avaliacaoDto.getIdFilme());
 
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setNota(avaliacaoDto.getNota());
