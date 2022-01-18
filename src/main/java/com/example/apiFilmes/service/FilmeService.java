@@ -23,5 +23,16 @@ public class FilmeService {
         return filmeRepository.save(filme);
     }
 
+    public Filme atualizarFilme(Long idFilme, FilmeDto filmeDto){
+        Filme filme = filmeRepository.getById(idFilme);
+        filme.setNome(filmeDto.getNome());
+
+        return filmeRepository.save(filme);
+    }
+
+    public void excluirFilme(Long idFilme){
+        filmeRepository.deleteById(idFilme);
+    }
+
 
 }
