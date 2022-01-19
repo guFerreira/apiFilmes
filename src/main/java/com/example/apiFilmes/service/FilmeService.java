@@ -19,7 +19,6 @@ public class FilmeService {
     private AvaliacaoRepository avaliacaoRepository;
 
     public FilmeService(FilmeRepository filmeRepository, AvaliacaoRepository avaliacaoRepository) {
-
         this.filmeRepository = filmeRepository;
         this.avaliacaoRepository = avaliacaoRepository;
     }
@@ -39,8 +38,7 @@ public class FilmeService {
     }
 
     public FilmeResponseDto criarFilme(FilmeDto filmeDto) {
-
-        Filme filme = new Filme(filmeDto.getNome());
+        Filme filme = Filme.builder().nome(filmeDto.getNome()).build();
         filmeRepository.save(filme);
         return new FilmeResponseDto(filme.getNome(), 0);
     }
@@ -78,4 +76,5 @@ public class FilmeService {
                 .collect(Collectors.toList());
         return filmeResponseDtos;
     }
+
 }

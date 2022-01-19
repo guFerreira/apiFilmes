@@ -20,9 +20,10 @@ public class AvaliacaoService {
     public Avaliacao avaliarFilme(AvaliacaoDto avaliacaoDto){
         Filme filme = filmeRepository.getById(avaliacaoDto.getIdFilme());
 
-        Avaliacao avaliacao = new Avaliacao();
-        avaliacao.setNota(avaliacaoDto.getNota());
-        avaliacao.setFilme(filme);
+        Avaliacao avaliacao = Avaliacao.builder()
+                .nota(avaliacaoDto.getNota())
+                .filme(filme)
+                .build();
 
         filme.getAvaliacoes().add(avaliacao);
         return avaliacaoRepository.save(avaliacao);

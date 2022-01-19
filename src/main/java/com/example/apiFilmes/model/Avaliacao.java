@@ -1,9 +1,15 @@
 package com.example.apiFilmes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+
+@Getter @Setter @NoArgsConstructor @Builder
 @Entity
 public class Avaliacao {
     @Id
@@ -17,27 +23,4 @@ public class Avaliacao {
     @ManyToOne(fetch = FetchType.LAZY)
     private Filme filme;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getNota() {
-        return nota;
-    }
-
-    public void setNota(int nota) {
-        this.nota = nota;
-    }
-
-    public Filme getFilme() {
-        return filme;
-    }
-
-    public void setFilme(Filme filme) {
-        this.filme = filme;
-    }
 }
