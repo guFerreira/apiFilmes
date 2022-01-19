@@ -2,6 +2,7 @@ package com.example.apiFilmes.controller;
 
 import com.example.apiFilmes.dto.AvaliacaoDto;
 import com.example.apiFilmes.dto.FilmeDto;
+import com.example.apiFilmes.dto.FilmeResponseDto;
 import com.example.apiFilmes.model.Avaliacao;
 import com.example.apiFilmes.model.Filme;
 import com.example.apiFilmes.service.FilmeService;
@@ -32,6 +33,17 @@ public class FilmeController {
     public ResponseEntity<FilmeResponseDto> exibirFilmeById(@PathVariable Long idFilme){
         return ResponseEntity.ok(filmeService.exibirFilmeById(idFilme));
     }
+
+    @GetMapping("/sem-avaliacao")
+    public ResponseEntity<List<FilmeResponseDto>> exibirTodosOsFilmesSemAvaliacao(){
+        return ResponseEntity.ok(filmeService.filtrarFilmesSemAvaliacao());
+    }
+
+    @GetMapping("/recomendacao")
+    public ResponseEntity<FilmeResponseDto> recomendarFilmeSemAvaliacao(){
+        return ResponseEntity.ok(filmeService.indicarFilmeSemAvaliacao());
+    }
+
     @PostMapping
     public ResponseEntity<Filme> criarFilme(@RequestBody FilmeDto filmeDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(this.filmeService.criarFilme(filmeDto));
@@ -47,5 +59,6 @@ public class FilmeController {
     public void excluirFilme(@PathVariable Long idFilme){
         filmeService.excluirFilme(idFilme);
     }
+
 
 }

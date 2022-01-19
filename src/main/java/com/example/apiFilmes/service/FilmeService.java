@@ -19,8 +19,12 @@ import java.util.stream.Collectors;
 public class FilmeService {
     private FilmeRepository filmeRepository;
 
-    public FilmeService(FilmeRepository filmeRepository) {
+    private AvaliacaoRepository avaliacaoRepository;
+
+    public FilmeService(FilmeRepository filmeRepository, AvaliacaoRepository avaliacaoRepository) {
+
         this.filmeRepository = filmeRepository;
+        this.avaliacaoRepository = avaliacaoRepository;
     }
 
     public List<FilmeResponseDto> exibirTodosOsFilmes() {
@@ -55,5 +59,24 @@ public class FilmeService {
         filmeRepository.deleteById(idFilme);
     }
 
+    private float calcularMediaAvaliacao(Long idFilme) {
+        return avaliacaoRepository.getMediaAvaliacaoByFilmeId(idFilme);
+    }
 
+    public FilmeResponseDto indicarFilmeSemAvaliacao() {
+        Random random = new Random();
+        List<FilmeResponseDto> filmes = this.filtrarFilmesSemAvaliacao();
+        return filmes.get(random.nextInt(filmes.size()));
+    }
+
+    public List<FilmeResponseDto> filtrarFilmesSemAvaliacao() {
+        List<Filme> filmes = filmeRepository.findAll();
+
+        List<FilmeResponseDto> filmeResponseDtos = filmes
+                .stream()
+                .map(filme -> new FilmeResponseDto(filme.getNome(), this.calcularMediaAvaliacao(filme.getId())))
+                .filter(filmeResponseDto -> filmeResponseDto.getAvaliacaoMedia() == 0.0)
+                .collect(Collectors.toList());
+        return filmeResponseDtos;
+    }
 }
