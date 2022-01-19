@@ -23,16 +23,23 @@ public class FilmeController {
         this.filmeService = filmeService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<FilmeResponseDto>> exibirTodosOsFilmes(){
+        return ResponseEntity.ok(filmeService.exibirTodosOsFilmes());
+    }
+
+    @GetMapping("/{idFilme}")
+    public ResponseEntity<FilmeResponseDto> exibirFilmeById(@PathVariable Long idFilme){
+        return ResponseEntity.ok(filmeService.exibirFilmeById(idFilme));
+    }
     @PostMapping
     public ResponseEntity<Filme> criarFilme(@RequestBody FilmeDto filmeDto){
-        Filme novoFilme = this.filmeService.criarFilme(filmeDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoFilme);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.filmeService.criarFilme(filmeDto));
     }
 
     @PutMapping("/{idFilme}")
     public ResponseEntity<Filme> atualizarFilme(@PathVariable Long idFilme, @RequestBody FilmeDto filmeDto){
-        Filme filmeAtualizado = filmeService.atualizarFilme(idFilme, filmeDto);
-        return ResponseEntity.ok(filmeAtualizado);
+        return ResponseEntity.ok(filmeService.atualizarFilme(idFilme, filmeDto));
     }
 
     @DeleteMapping("/{idFilme}")
