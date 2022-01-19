@@ -29,9 +29,9 @@ public class FilmeController {
         return ResponseEntity.ok(filmeService.exibirTodosOsFilmes());
     }
 
-    @GetMapping("/{idFilme}")
-    public ResponseEntity<FilmeResponseDto> exibirFilmeById(@PathVariable Long idFilme){
-        return ResponseEntity.ok(filmeService.exibirFilmeById(idFilme));
+    @GetMapping("/{id}")
+    public ResponseEntity<FilmeResponseDto> exibirFilmeById(@PathVariable Long id){
+        return ResponseEntity.ok(filmeService.exibirFilmeById(id));
     }
 
     @GetMapping("/sem-avaliacao")
@@ -45,19 +45,19 @@ public class FilmeController {
     }
 
     @PostMapping
-    public ResponseEntity<Filme> criarFilme(@RequestBody FilmeDto filmeDto){
+    public ResponseEntity<FilmeResponseDto> criarFilme(@RequestBody FilmeDto filmeDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(this.filmeService.criarFilme(filmeDto));
     }
 
-    @PutMapping("/{idFilme}")
-    public ResponseEntity<Filme> atualizarFilme(@PathVariable Long idFilme, @RequestBody FilmeDto filmeDto){
-        return ResponseEntity.ok(filmeService.atualizarFilme(idFilme, filmeDto));
+    @PutMapping("/{id}")
+    public ResponseEntity<FilmeResponseDto> atualizarFilme(@PathVariable Long id, @RequestBody FilmeDto filmeDto){
+        return ResponseEntity.ok(filmeService.atualizarFilme(id, filmeDto));
     }
 
-    @DeleteMapping("/{idFilme}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void excluirFilme(@PathVariable Long idFilme){
-        filmeService.excluirFilme(idFilme);
+    public void excluirFilme(@PathVariable Long id){
+        filmeService.excluirFilme(id);
     }
 
 

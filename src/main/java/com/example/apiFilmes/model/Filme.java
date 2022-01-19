@@ -11,11 +11,17 @@ public class Filme {
     private Long id;
 
     @Column
-    @NotBlank(message = "É necessário informar um nome ao filme.")
     private String nome;
 
     @OneToMany(mappedBy="filme", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Avaliacao> avaliacoes;
+
+    public Filme() {
+
+    }
+    public Filme(String nome) {
+        this.nome = nome;
+    }
 
     public Long getId() {
         return id;

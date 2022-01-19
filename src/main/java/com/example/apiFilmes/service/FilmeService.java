@@ -1,17 +1,14 @@
 package com.example.apiFilmes.service;
 
-import com.example.apiFilmes.dto.AvaliacaoDto;
+
 import com.example.apiFilmes.dto.FilmeDto;
 import com.example.apiFilmes.dto.FilmeResponseDto;
-import com.example.apiFilmes.model.Avaliacao;
 import com.example.apiFilmes.model.Filme;
 import com.example.apiFilmes.repository.AvaliacaoRepository;
 import com.example.apiFilmes.repository.FilmeRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -36,31 +33,33 @@ public class FilmeService {
                 .collect(Collectors.toList());
     }
 
-    public FilmeResponseDto exibirFilmeById(Long idFilme) {
-        Filme filme = filmeRepository.getById(idFilme);
-        return new FilmeResponseDto(filme.getNome(), this.calcularMediaAvaliacao(idFilme));
+    public FilmeResponseDto exibirFilmeById(Long id) {
+        Filme filme = filmeRepository.getById(id);
+        return new FilmeResponseDto(filme.getNome(), this.calcularMediaAvaliacao(id));
     }
 
-    public Filme criarFilme(FilmeDto filmeDto) {
-        Filme filme = new Filme();
+    public FilmeResponseDto criarFilme(FilmeDto filmeDto) {
+
+        Filme filme = new Filme(filmeDto.getNome());
+        filmeRepository.save(filme);
+        return new FilmeResponseDto(filme.getNome(), 0);
+    }
+
+    public FilmeResponseDto atualizarFilme(Long id, FilmeDto filmeDto) {
+        Filme filme = filmeRepository.getById(id);
         filme.setNome(filmeDto.getNome());
 
-        return filmeRepository.save(filme);
+        return new FilmeResponseDto(filme.getNome(),
+                this.calcularMediaAvaliacao(id));
+
     }
 
-    public Filme atualizarFilme(Long idFilme, FilmeDto filmeDto) {
-        Filme filme = filmeRepository.getById(idFilme);
-        filme.setNome(filmeDto.getNome());
-
-        return filmeRepository.save(filme);
+    public void excluirFilme(Long id) {
+        filmeRepository.deleteById(id);
     }
 
-    public void excluirFilme(Long idFilme) {
-        filmeRepository.deleteById(idFilme);
-    }
-
-    private float calcularMediaAvaliacao(Long idFilme) {
-        return avaliacaoRepository.getMediaAvaliacaoByFilmeId(idFilme);
+    private float calcularMediaAvaliacao(Long id) {
+        return avaliacaoRepository.getMediaAvaliacaoByFilmeId(id);
     }
 
     public FilmeResponseDto indicarFilmeSemAvaliacao() {
