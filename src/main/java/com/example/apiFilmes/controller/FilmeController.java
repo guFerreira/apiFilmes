@@ -2,7 +2,8 @@ package com.example.apiFilmes.controller;
 
 import com.example.apiFilmes.dto.FilmeDto;
 import com.example.apiFilmes.dto.FilmeResponseDto;
-import com.example.apiFilmes.service.FilmeService;
+import com.example.apiFilmes.service.FilmeServiceImpl;
+import com.example.apiFilmes.service.interfaces.FilmeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,18 +1,11 @@
 package com.example.apiFilmes.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter @NoArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class FilmeResponseDto {
     private String nome;
     private float avaliacaoMedia;
-
-    public FilmeResponseDto(String nome, float avaliacaoMedia) {
-        this.nome = nome;
-        this.avaliacaoMedia = avaliacaoMedia;
-    }
 
 }

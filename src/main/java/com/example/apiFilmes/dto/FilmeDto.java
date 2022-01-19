@@ -1,13 +1,11 @@
 package com.example.apiFilmes.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter @Setter @NoArgsConstructor @Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Builder
 public class FilmeDto {
 
     @NotBlank(message = "É necessário informar um nome ao filme.")

@@ -6,6 +6,7 @@ import com.example.apiFilmes.dto.FilmeResponseDto;
 import com.example.apiFilmes.model.Filme;
 import com.example.apiFilmes.repository.AvaliacaoRepository;
 import com.example.apiFilmes.repository.FilmeRepository;
+import com.example.apiFilmes.service.interfaces.FilmeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +14,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
-public class FilmeService {
+public class FilmeServiceImpl implements FilmeService {
     private FilmeRepository filmeRepository;
-
     private AvaliacaoRepository avaliacaoRepository;
 
-    public FilmeService(FilmeRepository filmeRepository, AvaliacaoRepository avaliacaoRepository) {
+    public FilmeServiceImpl(FilmeRepository filmeRepository, AvaliacaoRepository avaliacaoRepository) {
         this.filmeRepository = filmeRepository;
         this.avaliacaoRepository = avaliacaoRepository;
     }

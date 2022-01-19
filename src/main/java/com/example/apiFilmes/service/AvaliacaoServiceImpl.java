@@ -5,14 +5,15 @@ import com.example.apiFilmes.model.Avaliacao;
 import com.example.apiFilmes.model.Filme;
 import com.example.apiFilmes.repository.AvaliacaoRepository;
 import com.example.apiFilmes.repository.FilmeRepository;
+import com.example.apiFilmes.service.interfaces.AvaliacaoService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AvaliacaoService {
+public class AvaliacaoServiceImpl implements AvaliacaoService {
     private FilmeRepository filmeRepository;
     private AvaliacaoRepository avaliacaoRepository;
 
-    public AvaliacaoService(FilmeRepository filmeRepository, AvaliacaoRepository avaliacaoRepository) {
+    public AvaliacaoServiceImpl(FilmeRepository filmeRepository, AvaliacaoRepository avaliacaoRepository) {
         this.filmeRepository = filmeRepository;
         this.avaliacaoRepository = avaliacaoRepository;
     }
