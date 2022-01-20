@@ -9,6 +9,7 @@ import com.example.apiFilmes.repository.FilmeRepository;
 import com.example.apiFilmes.service.interfaces.FilmeService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class FilmeServiceImpl implements FilmeService {
     }
 
     public FilmeResponseDto exibirFilmeById(Long id) {
-        Filme filme = filmeRepository.getById(id);
+        Filme filme = this.buscarFilmePorId(id);
         return new FilmeResponseDto(filme.getNome(), this.calcularMediaAvaliacao(id));
     }
 
@@ -44,7 +45,7 @@ public class FilmeServiceImpl implements FilmeService {
     }
 
     public FilmeResponseDto atualizarFilme(Long id, FilmeDto filmeDto) {
-        Filme filme = filmeRepository.getById(id);
+        Filme filme = this.buscarFilmePorId(id);
         filme.setNome(filmeDto.getNome());
 
         return new FilmeResponseDto(filme.getNome(),
@@ -53,6 +54,7 @@ public class FilmeServiceImpl implements FilmeService {
     }
 
     public void excluirFilme(Long id) {
+        buscarFilmePorId(id);
         filmeRepository.deleteById(id);
     }
 
@@ -75,6 +77,12 @@ public class FilmeServiceImpl implements FilmeService {
                 .filter(filmeResponseDto -> filmeResponseDto.getAvaliacaoMedia() == 0.0)
                 .collect(Collectors.toList());
         return filmeResponseDtos;
+    }
+
+    private Filme buscarFilmePorId(Long id){
+        String mensagem = "Não foi encontrado a entidade Filme com o id "+ id;
+        return this.filmeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(mensagem));
+
     }
 
 }

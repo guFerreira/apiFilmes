@@ -9,12 +9,12 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class AvaliacaoDto {
-    @NotNull(message = "É necessário informar uma nota.")
-    @Max(value = 5,message = "A nota máxima deve ser menor ou igual a 5.")
-    @Min(value = 1, message = "A nota mínima deve ser maior ou igual a 1")
+    @NotNull(message = "{nota.not.null}")
+    @Max(value = 5,message = "{nota.max}")
+    @Min(value = 1, message = "{nota.min}")
     private int nota;
 
-    @NotNull(message = "O idFilme não pode ser nulo.")
+    @NotNull(message = "{nota.idFilme}")
     private Long idFilme;
 
 }

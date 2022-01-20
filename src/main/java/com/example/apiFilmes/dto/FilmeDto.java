@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class FilmeDto {
 
-    @NotBlank(message = "É necessário informar um nome ao filme.")
+    @NotBlank(message = "{filme.not.blank}")
     private String nome;
 
 }

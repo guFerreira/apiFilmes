@@ -8,6 +8,8 @@ import com.example.apiFilmes.repository.FilmeRepository;
 import com.example.apiFilmes.service.interfaces.AvaliacaoService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class AvaliacaoServiceImpl implements AvaliacaoService {
     private FilmeRepository filmeRepository;
@@ -19,7 +21,8 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
     }
 
     public Avaliacao avaliarFilme(AvaliacaoDto avaliacaoDto){
-        Filme filme = filmeRepository.getById(avaliacaoDto.getIdFilme());
+        Filme filme = filmeRepository.findById(avaliacaoDto.getIdFilme())
+                .orElseThrow(()-> new EntityNotFoundException("Não foi encontrado a entidade Filme com o id "+avaliacaoDto.getIdFilme()));
 
         Avaliacao avaliacao = Avaliacao.builder()
                 .nota(avaliacaoDto.getNota())
@@ -29,4 +32,6 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
         filme.getAvaliacoes().add(avaliacao);
         return avaliacaoRepository.save(avaliacao);
     }
+
+
 }
