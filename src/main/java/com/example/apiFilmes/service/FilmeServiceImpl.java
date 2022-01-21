@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+
 @Service
 public class FilmeServiceImpl implements FilmeService {
     private FilmeRepository filmeRepository;
@@ -24,6 +25,7 @@ public class FilmeServiceImpl implements FilmeService {
         this.avaliacaoRepository = avaliacaoRepository;
     }
 
+    @Override
     public List<FilmeResponseDto> exibirTodosOsFilmes() {
         List<Filme> filmes = filmeRepository.findAll();
         this.filtrarFilmesSemAvaliacao();
@@ -33,26 +35,29 @@ public class FilmeServiceImpl implements FilmeService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public FilmeResponseDto exibirFilmeById(Long id) {
         Filme filme = this.buscarFilmePorId(id);
         return new FilmeResponseDto(filme.getNome(), this.calcularMediaAvaliacao(id));
     }
 
+    @Override
     public FilmeResponseDto criarFilme(FilmeDto filmeDto) {
         Filme filme = Filme.builder().nome(filmeDto.getNome()).build();
         filmeRepository.save(filme);
         return new FilmeResponseDto(filme.getNome(), 0);
     }
 
+    @Override
     public FilmeResponseDto atualizarFilme(Long id, FilmeDto filmeDto) {
         Filme filme = this.buscarFilmePorId(id);
         filme.setNome(filmeDto.getNome());
 
-        return new FilmeResponseDto(filme.getNome(),
-                this.calcularMediaAvaliacao(id));
+        return new FilmeResponseDto(filme.getNome(), this.calcularMediaAvaliacao(id));
 
     }
 
+    @Override
     public void excluirFilme(Long id) {
         buscarFilmePorId(id);
         filmeRepository.deleteById(id);
@@ -62,12 +67,14 @@ public class FilmeServiceImpl implements FilmeService {
         return avaliacaoRepository.getMediaAvaliacaoByFilmeId(id);
     }
 
+    @Override
     public FilmeResponseDto indicarFilmeSemAvaliacao() {
         Random random = new Random();
         List<FilmeResponseDto> filmes = this.filtrarFilmesSemAvaliacao();
         return filmes.get(random.nextInt(filmes.size()));
     }
 
+    @Override
     public List<FilmeResponseDto> filtrarFilmesSemAvaliacao() {
         List<Filme> filmes = filmeRepository.findAll();
 

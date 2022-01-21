@@ -5,5 +5,5 @@ import com.example.apiFilmes.model.Avaliacao;
 import com.example.apiFilmes.model.Filme;
 
 public interface AvaliacaoService {
-    public Avaliacao avaliarFilme(AvaliacaoDto avaliacaoDto);
+    Avaliacao avaliarFilme(AvaliacaoDto avaliacaoDto);
 }

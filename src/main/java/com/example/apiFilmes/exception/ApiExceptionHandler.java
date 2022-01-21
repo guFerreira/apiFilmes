@@ -22,13 +22,10 @@ public class ApiExceptionHandler {
     public ResponseEntity<MensagemErro> methodArgumentNotValidException (MethodArgumentNotValidException e, HttpServletRequest request){
         BindingResult result = e.getBindingResult();
 
-        MensagemErro erro = MensagemErro.builder()
-                .timestamp(Instant.now())
-                .status(HttpStatus.CONFLICT.value())
-                .type("Argumento Inválido")
-                .message(this.construirMensagemErro(result))
-                .path(request.getRequestURI())
-                .build();
+        MensagemErro erro = this.construirMensagemErro(HttpStatus.CONFLICT.value(),
+                "Argumento Inválido",
+                this.construirListaErros(result),
+                request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
     }
@@ -38,18 +35,26 @@ public class ApiExceptionHandler {
         List<String> mensagem = new ArrayList<String>();
         mensagem.add(e.getMessage());
 
-        MensagemErro erro = MensagemErro.builder()
-                .timestamp(Instant.now())
-                .status(HttpStatus.NOT_FOUND.value())
-                .type("Entidade Não Foi Encontrada!")
-                .message(mensagem)
-                .path(request.getRequestURI())
-                .build();
+        MensagemErro erro = this.construirMensagemErro(
+                HttpStatus.NOT_FOUND.value(),
+                "Entidade Não Foi Encontrada!",
+                mensagem,
+                request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
-    private List<String> construirMensagemErro(BindingResult result){
+    private MensagemErro construirMensagemErro(int httpStatus, String type, List<String> mensagem, String path) {
+        return MensagemErro.builder()
+                .timestamp(Instant.now())
+                .status(httpStatus)
+                .type(type)
+                .message(mensagem)
+                .path(path)
+                .build();
+    }
+
+    private List<String> construirListaErros(BindingResult result){
         List<String> mensagens = result.getAllErrors()
                 .stream()
                 .map(ObjectError::getDefaultMessage)

@@ -20,6 +20,7 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
         this.avaliacaoRepository = avaliacaoRepository;
     }
 
+    @Override
     public Avaliacao avaliarFilme(AvaliacaoDto avaliacaoDto){
         Filme filme = filmeRepository.findById(avaliacaoDto.getIdFilme())
                 .orElseThrow(()-> new EntityNotFoundException("Não foi encontrado a entidade Filme com o id "+avaliacaoDto.getIdFilme()));

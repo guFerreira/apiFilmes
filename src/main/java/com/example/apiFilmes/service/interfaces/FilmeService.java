@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface FilmeService {
 
-    public List<FilmeResponseDto> exibirTodosOsFilmes();
+    List<FilmeResponseDto> exibirTodosOsFilmes();
 
-    public FilmeResponseDto exibirFilmeById(Long id);
+    FilmeResponseDto exibirFilmeById(Long id);
 
-    public FilmeResponseDto criarFilme(FilmeDto filmeDto);
+    FilmeResponseDto criarFilme(FilmeDto filmeDto);
 
-    public FilmeResponseDto atualizarFilme(Long id, FilmeDto filmeDto) ;
+    FilmeResponseDto atualizarFilme(Long id, FilmeDto filmeDto) ;
 
-    public void excluirFilme(Long id);
+    void excluirFilme(Long id);
 
-    public FilmeResponseDto indicarFilmeSemAvaliacao();
+    FilmeResponseDto indicarFilmeSemAvaliacao();
 
-    public List<FilmeResponseDto> filtrarFilmesSemAvaliacao();
+    List<FilmeResponseDto> filtrarFilmesSemAvaliacao();
 }
